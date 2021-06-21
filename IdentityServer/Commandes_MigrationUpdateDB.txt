@@ -1,0 +1,8 @@
+Add-Migration InsertLattitudeLongitude_Etab -Project Api -c AppDbContext -o Data/
+Add-Migration [NomdeLaMigration] -Project IdentityServer -c AppDbContext
+Update-Database [NomdeLaMigration] -Project IdentityServer -c AppDbContext
+Add-Migration AddScop -Project IdentityServer -c ConfigurationDbContext
+Update-Database AddScop -Project IdentityServer -c ConfigurationDbContext
+Add-Migration AddScop -Project IdentityServer -c PersistedGrantDbContext
+Update-Database AddScop -Project IdentityServer -c PersistedGrantDbContext
+

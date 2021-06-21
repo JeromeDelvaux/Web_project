@@ -1,0 +1,48 @@
+﻿@model IEnumerable<IdentityRole>
+
+@{
+    ViewBag.Title = "Tous les rôles";
+}
+
+<h1>Liste de vos rôles</h1>
+
+@if (Model.Any())
+{
+    <p>
+        <a asp-controller="AdministrationUtilisateurs" asp-action="CreateRole">Nouveau rôle</a>
+    </p>
+    foreach (var role in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                Role Id : @role.Id
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">@role.Name</h5>
+            </div>
+            <div class="card-footer">
+                <a asp-controller="AdministrationUtilisateurs" asp-action="EditRole" asp-route-id=@role.Id class="btn btn-primary">Editer le rôle/ Ajouter ou supprimer utilisateurs</a>
+                <a href="#" class="btn btn-primary">Supprimer</a>
+            </div>
+        </div>
+    }
+    <div>
+        Cliquez <a class="PostLogoutRedirectUri text-center" asp-controller="home" asp-action="RetourWebProject">ici</a> afin de retourner sur la page d'accueil.
+    </div>
+}
+else
+{
+    <div class="card">
+        <div class="card-header">
+            Il n'y à aucun roles de créer
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                Utiliser le bouton "Créer Role" afin d'en créer un
+            </h5>
+            <a asp-controller="AdministrationUtilisateurs" asp-action="CreateRole" class="btn btn-primary" style="width:auto">
+                Créer Rôle
+            </a>
+        </div>
+    </div>
+}

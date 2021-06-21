@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Etablissement>
+@{
+    ViewData["Title"] = "liste établissement";
+}
+<p>
+    <a asp-controller="AdministrationEtablissement" asp-action="Create">Nouvel Etablissement</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Logo
+            </th>
+            <th>
+                Nom
+            </th>
+            <th>
+                Type
+            </th>
+
+            <th>
+                Valider
+            </th>
+
+            <th>
+                Id Uploader
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var LogoPath = "~/Images/" + (item.LogoPath ?? "LogoDefault.png");
+            <tr>
+                <td>
+                    <img src="@LogoPath" class="imageThumbnail" asp-append-version="true" style="width:100px; height:100px" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TypeEtab)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.estValide)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    <a asp-controller="AdministrationEtablissement" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-controller="AdministrationEtablissement" asp-action="Edit" asp-route-id="@item.Id">Editer</a>
+                </td>
+                @if (User.Claims.Any(x => x.Type.ToString() == "role" && (x.Value == "Administrateur")))
+                {
+                    <td>
+                        <form asp-controller="AdministrationEtablissement" asp-action="ValidationEtablissement" asp-route-id="@item.Id" method="post">
+
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-check"></i> Valider</button>
+                        </form>
+                    </td>
+                }
+                <td>
+                    <form asp-controller="AdministrationEtablissement" asp-action="DeleteEtablissement" asp-route-id="@item.Id" method="post">
+                        <span id="confirmDeleteSpan_@item.Id" style="display:none">
+                            <span>Etes vous certain de vouloir supprimer cet établissement ?</span>
+                            <button type="submit" class="btn btn-danger">Oui</button>
+                            <a href="#" class="btn btn-primary" onclick="confirmDelete('@item.Id',false)">Non</a>
+                        </span>
+
+                        <span id="deleteSpan_@item.Id">
+                            <a href="#" class="btn btn-primary"
+                               onclick="confirmDelete('@item.Id',true)"><i class="fa fa-trash"> Supprimer</i></a>
+                        </span>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    Cliquez <a class="PostLogoutRedirectUri text-center" asp-controller="home" asp-action="index">ici</a> afin de retourner sur la page d'accueil.
+</div>
+
+@section Scripts{  
+    <script type="text/javascript" data-my_var_1="@TempData["Message"]" src="/js/Toastr.js"></script>
+    <script src="~/js/CustomScript.js"></script>
+}

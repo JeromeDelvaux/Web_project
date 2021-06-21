@@ -1,0 +1,144 @@
+﻿@model EtablissementDetailsViewModel
+@{
+    ViewBag.Title = "Etablissement Details";
+    var LogoPath = "~/Images/" + (Model.etablissement.LogoPath);
+}
+  
+<div id="gauche">
+    <div id="centerAll">
+        <br />
+        <br />
+        <br />
+            <div class="col-sm-12 ">
+                <div id="demo" class="carousel slide" data-ride="carousel">
+
+                    <!-- Indicators -->
+                    <ul class="carousel-indicators">
+                        <li data-target="#demo" data-slide-to="0" class="active"></li>
+                        <li data-target="#demo" data-slide-to="1"></li>
+                        <li data-target="#demo" data-slide-to="2"></li>
+                    </ul>
+
+                    <!-- The slideshow -->
+                    <div class="carousel-inner">
+                        @for (int i = 0; i < Model.etablissement._PhotosList.Count; i++)
+                        {
+                            @if (i == 0)
+                            {
+                                <div class="carousel-item active">
+                                    <img src=@Model.etablissement._PhotosList[i].PhotosPath>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="carousel-item">
+                                    <img src=@Model.etablissement._PhotosList[i].PhotosPath>
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                        <span class="carousel-control-prev-icon"></span>
+                    </a>
+                    <a class="carousel-control-next" href="#demo" data-slide="next">
+                        <span class="carousel-control-next-icon"></span>
+                    </a>
+
+                </div>
+
+            </div>
+        <br />
+        <p>@Model.etablissement.ZoneTexteLibre</p>
+        <br />
+    </div>
+</div>
+<div id="droite">
+    <div class="row justify-content-center m-3">
+        <div class="col-sm-8">
+            <div class="card-body" id="centerAll">
+                <div><img src=@LogoPath class="img-circle" style="width:90px;height:90px" asp-append-version="true"></div>
+                <br />
+                <h3 class="card-title" style="color:#0366d6">Informations Etablissement</h3>
+                <h4>@Model.etablissement.Nom</h4>
+                <h6>Genre: @Model.etablissement.TypeEtab</h6>
+                <h4 class="card-title" style="color:#0366d6">Coordonnées</h4>
+                <h6>@Model.etablissement.Rue @Model.etablissement.NumeroBoite</h6>
+                <h6>@Model.etablissement.Ville</h6>
+                <h6>@Model.etablissement.CodePostal | @Model.etablissement.Pays </h6>
+                <h6>Tel: @Model.etablissement.NumeroTelephone | TVA: @Model.etablissement.NumeroTva</h6>
+                <br />
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <h4 class="card-title" style="color:#0366d6">Horaires</h4>
+                    <table class="table table-striped col-md-12" id="centerAll">
+                        <tr id="titre">
+                            <th>Jour</th>
+                            <th>Heure d'ouverture</th>
+                            <th>Heure de fermeture</th>
+                        </tr>
+                        <tbody id="horaire-container">
+                            @for (int i = 0; i < Model.etablissement._HoraireList.Count; i++)
+                            {
+                                @if (@Model.etablissement._HoraireList[i].Heures_Ouverture.ToString(@"hh\:mm") == @Model.etablissement._HoraireList[i].Heures_Fermeture.ToString(@"hh\:mm"))
+                                {
+                                    <tr>
+                                        <td>
+                                            @Model.etablissement._HoraireList[i].Jour
+                                        </td>
+                                        <td>Fermé</td>
+                                        <td>Fermé</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>
+                                            @Model.etablissement._HoraireList[i].Jour
+                                        </td>
+                                        <td>@Model.etablissement._HoraireList[i].Heures_Ouverture.ToString(@"hh\:mm")</td>
+                                        <td>@Model.etablissement._HoraireList[i].Heures_Fermeture.ToString(@"hh\:mm")</td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+
+                    </table>
+                 }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12" id="centerAll">
+    <h4 class="card-title" style="color:#0366d6">Liens utiles</h4>
+    <h6>@Model.etablissement.AdresseEmailPro</h6>
+    <h6>@Model.etablissement.AdresseEmailEtablissement</h6>
+    <br />
+    @if (Model.etablissement.SiteWebShortUrl != null)
+    {
+        <h6 class="card-title" style="color:#0366d6">ShortUrl</h6>
+        <div><a href="@Model.etablissement.SiteWebShortUrl" target="_blank">@Model.etablissement.SiteWebShortUrl</a></div>
+        <br />
+    }
+    <br />
+    <div><a href=@Model.etablissement.AdresseSiteWeb target="_blank">Site Web</a></div>
+    <a href="@Model.etablissement.AdresseFacebook" target="_blank" class="fa fa-facebook-f" style="color:#0366d6"></a>
+    <a href="@Model.etablissement.AdresseLinkedin" target="_blank" class="fa fa-twitter" style="color:#0366d6"></a>
+    <a href="@Model.etablissement.AdresseInstagram" target="_blank" class="fa fa-instagram" style="color:#0366d6"></a>
+</div>
+<br />
+<br />
+<div class="text-center">
+    <a asp-controller="Etablissement" asp-action="ListeEtablissements" class="btn btn-primary">Retour</a>
+</div>
+<div>
+    Cliquez <a class="PostLogoutRedirectUri" id="centerAll" asp-controller="home" asp-action="index">ici</a> afin de retourner sur la page d'accueil.
+</div>
+@section Scripts
+{
+    <script src="~/js/CustomScript.js"></script>
+}
+
+

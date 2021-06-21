@@ -1,0 +1,36 @@
+﻿@model UserDetailsViewModel
+
+@{
+    ViewBag.Title = "Profil";
+}
+    <div class="row justify-content-center m-3 text-center">
+        <div class="col-sm-8">
+            <div class="card-body">
+                <h3 class="card-title" style="color:#0366d6">@Model.PageTitle</h3>
+                <h6>@Model.User.Nom @Model.User.Prenom </h6>
+                <h6>@Model.User.DateNaissance.ToLongDateString() </h6>
+                <br />
+                @if (Model.User.Professionel == true)
+                {
+                    <h6>Professionel: oui / Status: Gestionnaire</h6>
+                }
+                <h4 class="card-title" style="color:#0366d6">informations</h4>
+                <h6>Sexe: @Model.User.Sexe</h6>
+                <h6>Telephone: @Model.User.PhoneNumber</h6>
+                <br />
+                <h4 class="card-title" style="color:#0366d6">Liens utiles</h4>
+                <h6>Email: @Model.User.Email</h6>
+            </div>
+        </div>
+    </div>
+
+<div class="card-footer text-center">
+    <a asp-controller="home" asp-action="RetourWebProject" class="btn btn-primary">Retour</a>
+    <a asp-controller="Account" asp-action="edit" asp-route-id="@Model.User.Id" class="btn btn-primary">Modifier</a>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/CustomScript.js"></script>
+}
+

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Etablissement>
+@{
+    ViewData["Title"] = "liste établissement";
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                Logo
+            </th>
+            <th>
+                Nom
+            </th>
+            <th>
+                Rue
+            </th>
+            <th>
+                N°
+            </th>
+            <th>
+                Localisation
+            </th>
+            <th>
+                Pays
+            </th>
+            <th>
+                Type
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var LogoPath = "~/Images/" + (item.LogoPath ?? "LogoDefault.png");
+        <tr>
+            <td>
+                <img src="@LogoPath" class="imageThumbnail" asp-append-version="true" style="width:100px; height:100px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroBoite)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodePostal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pays)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeEtab)
+            </td>
+            <td>
+                <a asp-controller="Etablissement" asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div>
+    Cliquez <a class="PostLogoutRedirectUri text-center" asp-controller="home" asp-action="index">ici</a> afin de retourner sur la page d'accueil.
+</div>
+
+

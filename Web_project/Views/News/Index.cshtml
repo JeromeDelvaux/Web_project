@@ -1,0 +1,47 @@
+﻿@model IEnumerable<News>
+<head>
+    <meta property="og:url" content="" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+</head>
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            var photoPath = "~/images/" + (item.PathImage ?? "NewsDefault.jpg");
+            <div class="col-4-lg" id="displayed">
+                <div class="card" style="width:18rem;">
+                    <img src="@photoPath" asp-append-version="true" alt="Card One" class="card-img-top" />
+                    <div class="card-body">
+                        <h5 class="card-title text-center text-dark">@item.Titre</h5>
+                        <p class="card-text">
+                            @item.TexteLibre
+                        </p>
+                    </div>
+                    <div>
+                        <div class="lds-ripple" id="displayed"><div></div><div></div></div>
+                    </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" style="text-align: center">@item.DatePublication</li>
+                </ul>
+            </div>
+        }
+    </div>
+</div>
+
+<div id="scroll_to_top">
+    <a href="#top"><img src="~/images/BoutonUp.png" alt="Retourner en haut" /></a>
+</div>
+@section Scripts{
+    <script src="~/js/AnimationMouseOver.js"></script>
+
+    <script src="~/js/Social-Share.js"></script>
+}
+
+
+

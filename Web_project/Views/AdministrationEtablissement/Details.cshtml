@@ -1,0 +1,48 @@
+﻿@model EtablissementDetailsViewModel
+@{
+    ViewBag.Title = "Etablissement Details";
+    var LogoPath = "~/Images/" + (Model.etablissement.LogoPath ?? "LogoDefault.png");
+}
+
+<div class="row justify-content-center m-3">
+    <div class="col-sm-8">
+        <div class="card-body" id="centerAll">
+            <div><img src=@LogoPath class="img-circle" style="width:90px;height:90px" asp-append-version="true"></div>
+            <br />
+            <h3 class="card-title" style="color:#0366d6">Informations Etablissement</h3>
+            <h4>@Model.etablissement.Nom</h4>
+            <h6>Genre: @Model.etablissement.TypeEtab</h6>
+            <h4 class="card-title" style="color:#0366d6">Coordonnées</h4>
+            <h6>@Model.etablissement.Rue @Model.etablissement.NumeroBoite</h6>
+            <h6>@Model.etablissement.Ville</h6>
+            <h6>@Model.etablissement.CodePostal | @Model.etablissement.Pays </h6>
+            <h6>Tel: @Model.etablissement.NumeroTelephone | TVA: @Model.etablissement.NumeroTva</h6>
+            <br />
+            <h4 class="card-title" style="color:#0366d6">Liens utiles</h4>
+            <h6>@Model.etablissement.AdresseEmailPro</h6>
+            <h6>@Model.etablissement.AdresseEmailEtablissement</h6>
+            <br />
+            <div><a href=@Model.etablissement.AdresseSiteWeb target="_blank">Site Web</a></div>
+            <br />
+            @if (Model.etablissement.SiteWebShortUrl != null)
+            {
+                <h6 class="card-title" style="color:#0366d6">ShortUrl</h6>
+                <div><a href="@Model.etablissement.SiteWebShortUrl" target="_blank">@Model.etablissement.SiteWebShortUrl</a></div>
+                <br />
+            }
+            <a href="@Model.etablissement.AdresseFacebook" target="_blank" class="fa fa-facebook-f" style="color:#0366d6"></a>
+            <a href="@Model.etablissement.AdresseLinkedin" target="_blank"><i class="fa fa-twitter" style="color:#0366d6"></i></a>
+            <a href="@Model.etablissement.AdresseInstagram" target="_blank"><i class="fa fa-instagram" style="color:#0366d6"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="card-footer text-center">
+    <a asp-controller="AdministrationEtablissement" asp-action="index" class="btn btn-primary">Retour</a>
+    <a asp-controller="AdministrationEtablissement" asp-action="edit" asp-route-id="@Model.etablissement.Id" class="btn btn-primary">Modifier</a>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/CustomScript.js"></script>
+}

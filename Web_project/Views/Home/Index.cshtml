@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<br />
+<br />
+<h3 class="card-title text-center">Voyagez, découvrez et appréciez...</h3>
+<h3 class="card-title text-center">Bars, Cercles Etudiants, Discothèques et salles de concerts </h3>
+
+<br />
+<h6 class="card-title text-center">Cherchez un point pour vous désalterer!</h6>
+<br />
+<br />
+<br />
+<div id="map"></div>
+@if (User.Identity.IsAuthenticated)
+{
+    <h6 class="card-title text-center">Marker Vert = Ouvert</h6>
+    <h6 class="card-title text-center">Marker Rouge = Ferme dans moins de 15 minutes</h6>
+}
+@section Scripts{
+    <script src="~/js/MapBox.js"></script>
+}
+
+
+
+

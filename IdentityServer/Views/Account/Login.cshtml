@@ -1,0 +1,34 @@
+﻿@model UserLoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+    <div class="container login-container">
+        <div class="row">
+            <div class="col-md-12 login-form-1">
+                <h3 class="text-center">S'identifier</h3>
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <input asp-for="Username" class="form-control" placeholder="Votre Email/UserName"/>
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Password" type="password" class="form-control" placeholder="Votre mot de passe"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox  text-center">
+                            <label asp-for="SeRappelerDeMoi">
+                                <input asp-for="SeRappelerDeMoi" />
+                                @Html.DisplayNameFor(m=>m.SeRappelerDeMoi)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group  text-center">
+                        <input type="submit" class="btnSubmit" name="button" value="S'identifier" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div>
+        Cliquez <a class="PostLogoutRedirectUri text-center" asp-controller="home" asp-action="RetourWebProject">ici</a> afin de retourner sur la page d'accueil.
+    </div>

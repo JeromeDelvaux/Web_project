@@ -1,0 +1,31 @@
+﻿
+@model  CreateRoleViewModel
+@{
+    ViewBag.Title = "Créer nouveau rôle";
+}
+
+
+<form enctype="multipart/form-data" asp-controller="AdministrationUtilisateurs" asp-action="CreateRole" method="post" class="mt-3">
+    <h2 class="text-center">Enregistrement de vos différents rôles</h2>
+    <h4 class="text-center">Insérer nouveau rôle</h4>
+    <div class="form-group row ">
+        <label asp-for="NomDuRole" class="col-sm-2 col-form-label"></label>
+        <div class="col-sm-10">
+            <input asp-for="NomDuRole" class="form-control" placeholder="ex: Administrateur" />
+            <span asp-validation-for="NomDuRole" class="text-danger"></span>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-10 col-sm-offset-2">
+            <button style="width:auto" type="submit" class="btn btn-primary">Créer nouveau rôle</button>
+        </div>
+    </div>
+
+    @section Scripts{
+
+        <script src="~/js/UploadFiles.js"></script>
+        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
+
+</form>
